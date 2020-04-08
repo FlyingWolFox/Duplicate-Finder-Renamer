@@ -85,28 +85,37 @@ public class Main {
      * @param args arguments received, should all be directories
      */
     public static void main(String[] args) {
+        // see if the -!b is present, if it's doesn't do backup
+        boolean backupFlag = true;
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("-!b")) {
+                backupFlag = false;
+                break;
+            }
+        }
+
         // rename in all directories received
         for (String path : args) {
-            // creates a backup directory, containing all files with the start names
-            Path backup; // main backup filder
-            try {
-                // TODO: put a way to not do a backup
+            if (backupFlag) {
+                // creates a backup directory, containing all files with the start names
+                Path backup; // main backup filder
                 try {
-                    backup = Files.createDirectory(Paths.get(path).getParent().resolve("Backup"));
-                } catch (FileAlreadyExistsException e) {
-                    backup = Paths.get(path).getParent().resolve("Backup");
-                }
-                copyFolder(Paths.get(path).toFile(), backup.resolve(Paths.get(path).getFileName()).toFile());
-                System.out.println("Backup Successful");
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Failed to create backup. Proceed? (y/n)");
-                String response = System.console().readLine();
-                if (!response.contains("y") && !response.contains("Y")) {
-                    System.exit(1);
+                    try {
+                        backup = Files.createDirectory(Paths.get(path).getParent().resolve("Backup"));
+                    } catch (FileAlreadyExistsException e) {
+                        backup = Paths.get(path).getParent().resolve("Backup");
+                    }
+                    copyFolder(Paths.get(path).toFile(), backup.resolve(Paths.get(path).getFileName()).toFile());
+                    System.out.println("Backup Successful");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("Failed to create backup. Proceed? (y/n)");
+                    String response = System.console().readLine();
+                    if (!response.contains("y") && !response.contains("Y")) {
+                        System.exit(1);
+                    }
                 }
             }
-
             // starts the renaming script
             new Main(path);
         }
