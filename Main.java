@@ -85,6 +85,10 @@ public class Main {
      * @param args arguments received, should all be directories
      */
     public static void main(String[] args) {
+        if(args.length < 1) {
+            System.out.println("    usage: DuplicateFinderRenamer [-!b] <dir> ...");
+            System.out.println("-!b     specifies to not do backup of the directories");
+        }
         // see if the -!b is present, if it's doesn't do backup
         boolean backupFlag = true;
         for (int i = 0; i < args.length; i++) {
