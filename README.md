@@ -16,20 +16,4 @@ It'll get all files of the directories passed and will look for `-` in th efilen
 
 ## About the code
 
-This tool uses these inported classes:
-```Java
-java.io.File; // File handling
-java.io.IOException; // IOException Handling
-java.nio.file.DirectoryStream; // Used to get files in the folders
-java.nio.file.FileAlreadyExistsException; // File exception handling
-java.nio.file.Files; // Path hadling and used to move files
-java.nio.file.Path; // File and directory handling
-java.nio.file.Paths; // File and directory handling
-java.util.ArrayList; // Used in file comparation
-```
-
-The `java.nio` libraries aren't available below Java 8, and maybe in JavaME
-
-## Future plans
-
-This tool will follow the course of the Duplicate Finder. If a new repetion handling is implemented in it, this tool will be updated
+This tool uses `java.nio` libraries, which aren't available below Java 8, and maybe in JavaME
